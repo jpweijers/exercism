@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "excercism"
+name = "exercism"
 version = "0.1.0"
 description = ""
 authors = ["Jean-Paul Weijers <jpweijers@users.noreply.github.com>"]
