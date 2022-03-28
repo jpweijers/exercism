@@ -5,6 +5,9 @@ How to play blackjack:    https://bicyclecards.com/how-to-play/blackjack/
 """
 
 
+from xml.dom import ValidationErr
+
+
 def value_of_card(card):
     """Determine the scoring value of a card.
 
@@ -12,7 +15,13 @@ def value_of_card(card):
     :return: int - value of a given card. 'J', 'Q', 'K' = 10; 'A' = 1; numerical value otherwise.
     """
 
-    pass
+    cards = {str(n): n for n in range(1, 11)}
+    cards = dict(cards, **{'J': 10, 'Q': 10, 'K': 10, 'A': 1})
+    if card in cards:
+        return cards[card]
+
+    else:
+        raise ValueError('Not a valid card')
 
 
 def higher_card(card_one, card_two):
@@ -22,7 +31,15 @@ def higher_card(card_one, card_two):
     :return: higher value card - str. Tuple of both cards if they are of equal value.
     """
 
-    pass
+    value_one = value_of_card(card_one)
+    value_two = value_of_card(card_two)
+
+    if value_one > value_two:
+        return card_one
+    if value_two > value_one:
+        return card_two
+    else:
+        return (card_one, card_two)
 
 
 def value_of_ace(card_one, card_two):
@@ -34,7 +51,14 @@ def value_of_ace(card_one, card_two):
     :return: int - value of the upcoming ace card (either 1 or 11).
     """
 
-    pass
+    value_in_hand = value_of_card(card_one) + value_of_card(card_two)
+
+    if 'A' in (card_one, card_two):
+        value_in_hand += 10
+
+    if value_in_hand + 11 <= 21:
+        return 11
+    return 1
 
 
 def is_blackjack(card_one, card_two):
@@ -44,7 +68,9 @@ def is_blackjack(card_one, card_two):
     :return: bool - if the hand is a blackjack (two cards worth 21).
     """
 
-    pass
+    ten_point_cards = ['J', 'Q', 'K', '10']
+
+    return card_one == 'A' and card_two in ten_point_cards or card_two == 'A' and card_one in ten_point_cards
 
 
 def can_split_pairs(card_one, card_two):
@@ -54,7 +80,7 @@ def can_split_pairs(card_one, card_two):
     :return: bool - if the hand can be split into two pairs (i.e. cards are of the same value).
     """
 
-    pass
+    return value_of_card(card_one) == value_of_card(card_two)
 
 
 def can_double_down(card_one, card_two):
@@ -64,4 +90,6 @@ def can_double_down(card_one, card_two):
     :return: bool - if the hand can be doubled down (i.e. totals 9, 10 or 11 points).
     """
 
-    pass
+    value_in_hand = value_of_card(card_one) + value_of_card(card_two)
+
+    return 9 <= value_in_hand <= 11
