@@ -2,6 +2,7 @@
 
 Python list documentation: https://docs.python.org/3/tutorial/datastructures.html
 """
+import statistics
 
 
 def get_rounds(number):
@@ -11,7 +12,7 @@ def get_rounds(number):
     :return: list - current round and the two that follow.
     """
 
-    pass
+    return [n for n in range(number, number + 3)]
 
 
 def concatenate_rounds(rounds_1, rounds_2):
@@ -22,7 +23,7 @@ def concatenate_rounds(rounds_1, rounds_2):
     :return: list - all rounds played.
     """
 
-    pass
+    return rounds_1 + rounds_2
 
 
 def list_contains_round(rounds, number):
@@ -33,7 +34,7 @@ def list_contains_round(rounds, number):
     :return:  bool - was the round played?
     """
 
-    pass
+    return number in rounds
 
 
 def card_average(hand):
@@ -43,7 +44,7 @@ def card_average(hand):
     :return:  float - average value of the cards in the hand.
     """
 
-    pass
+    return sum(hand) / len(hand)
 
 
 def approx_average_is_average(hand):
@@ -53,7 +54,10 @@ def approx_average_is_average(hand):
     :return: bool - if approximate average equals to the `true average`.
     """
 
-    pass
+    average = card_average(hand)
+    fl_average = (hand[0] + hand[-1]) / 2
+    m_average = statistics.median(hand)
+    return average == fl_average or average == m_average
 
 
 def average_even_is_average_odd(hand):
@@ -63,7 +67,10 @@ def average_even_is_average_odd(hand):
     :return: bool - are even and odd averages equal?
     """
 
-    pass
+    uneven = [hand[n] for n in range(0, len(hand), 2)]
+    even = [hand[n] for n in range(1, len(hand), 2)]
+
+    return card_average(even) == card_average(uneven)
 
 
 def maybe_double_last(hand):
@@ -73,4 +80,6 @@ def maybe_double_last(hand):
     :return: list - hand with Jacks (if present) value doubled.
     """
 
-    pass
+    if hand[-1] == 11:
+        hand[-1] *= 2
+    return hand
