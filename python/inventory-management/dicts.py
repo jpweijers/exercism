@@ -1,3 +1,6 @@
+from collections import Counter
+
+
 def create_inventory(items):
     """
 
@@ -5,7 +8,7 @@ def create_inventory(items):
     :return:  dict - the inventory dictionary.
     """
 
-    pass
+    return Counter(items)
 
 
 def add_items(inventory, items):
@@ -16,7 +19,7 @@ def add_items(inventory, items):
     :return:  dict - the inventory dictionary update with the new items.
     """
 
-    pass
+    return dict(Counter(inventory) + create_inventory(items))
 
 
 def decrement_items(inventory, items):
@@ -26,8 +29,9 @@ def decrement_items(inventory, items):
     :param items: list - list of items to decrement from the inventory.
     :return:  dict - updated inventory dictionary with items decremented.
     """
-
-    pass
+    i1 = Counter(inventory)
+    i2 = create_inventory(items)
+    return dict([(k, i1[k] - v) if i1[k] - v >= 0 else (k, 0) for k, v in i2.items()])
 
 
 def remove_item(inventory, item):
@@ -37,7 +41,8 @@ def remove_item(inventory, item):
     :return:  dict - updated inventory dictionary with item removed.
     """
 
-    pass
+    inventory.pop(item, "Unknown")
+    return inventory
 
 
 def list_inventory(inventory):
@@ -47,4 +52,4 @@ def list_inventory(inventory):
     :return: list of tuples - list of key, value pairs from the inventory dictionary.
     """
 
-    pass
+    return [(k, v) for (k, v) in inventory.items() if v > 0]
