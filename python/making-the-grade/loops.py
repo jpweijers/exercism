@@ -1,3 +1,6 @@
+import math
+
+
 def round_scores(student_scores):
     """"Round all provided student scores.
 
@@ -5,7 +8,7 @@ def round_scores(student_scores):
     :return: list of student scores *rounded* to nearest integer value.
     """
 
-    pass
+    return [round(s) for s in student_scores]
 
 
 def count_failed_students(student_scores):
@@ -15,7 +18,7 @@ def count_failed_students(student_scores):
     :return: integer count of student scores at or below 40.
     """
 
-    pass
+    return len([s for s in student_scores if s <= 40])
 
 
 def above_threshold(student_scores, threshold):
@@ -26,7 +29,7 @@ def above_threshold(student_scores, threshold):
     :return: list of integer scores that are at or above the "best" threshold.
     """
 
-    pass
+    return [s for s in student_scores if s >= threshold]
 
 
 def letter_grades(highest):
@@ -42,8 +45,8 @@ def letter_grades(highest):
              71 <= "B" <= 85
              86 <= "A" <= 100
     """
-
-    pass
+    interval_size = (highest - 40) // 4
+    return [41 + round(n * interval_size) for n in range(0, 4)]
 
 
 def student_ranking(student_scores, student_names):
@@ -54,7 +57,7 @@ def student_ranking(student_scores, student_names):
      :return: list of strings in format ["<rank>. <student name>: <score>"].
      """
 
-    pass
+    return [f'{i+1}. {n}: {s}' for i, (s, n) in enumerate(zip(student_scores, student_names))]
 
 
 def perfect_score(student_info):
@@ -64,4 +67,9 @@ def perfect_score(student_info):
     :return: first `[<student name>, 100]` or `[]` if no student score of 100 is found.
     """
 
-    pass
+    score_list = [info[1] for info in student_info]
+    try:
+        perfect_index = score_list.index(100)
+        return student_info[perfect_index]
+    except ValueError:
+        return []
