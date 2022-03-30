@@ -1,4 +1,5 @@
 """Solution to Ellen's Alien Game exercise."""
+from typing import List
 
 
 class Alien:
@@ -18,5 +19,37 @@ class Alien:
     teleport(new_x_coordinate, new_y_coordinate): Move Alien object to new coordinates.
     collision_detection(other): Implementation TBD.
     """
+    total_aliens_created = 0
 
-    pass
+    def __init__(self, x, y) -> None:
+        self.x_coordinate = x
+        self.y_coordinate = y
+        self.health = 3
+        type(self).total_aliens_created += 1
+
+    def hit(self) -> None:
+        self.health -= 1
+
+    def is_alive(self) -> bool:
+        return self.health > 0
+
+    def teleport(self, x, y) -> None:
+        self.x_coordinate = x
+        self.y_coordinate = y
+
+    def collision_detection(self, other_object):
+        pass
+
+
+def new_aliens_collection(start_positions) -> List[Alien]:
+    """
+    args: start_positions - list op coordinates e.g. [(1, 0), (2, 3)]
+
+    creates aliens with given starting locations
+    """
+    aliens = []
+
+    for coords in start_positions:
+        aliens.append(Alien(coords[0], coords[1]))
+
+    return aliens
