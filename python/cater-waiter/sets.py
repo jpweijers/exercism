@@ -127,4 +127,4 @@ def singleton_ingredients(dishes, intersection):
     """
 
     count = Counter([i for d in dishes for i in d])
-    return set([k for (k, v) in count.items() if v == 1])
+    return {k for (k, v) in count.items() if v == 1}
