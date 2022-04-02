@@ -1,30 +1,20 @@
 class School:
     def __init__(self):
-        self.students = {}
+        self.students = []
         self.add_list = []
 
     def add_student(self, name, grade):
-        if name not in self.students:
+        if not [n for g, n in self.students if n == name]:
+            self.students = sorted(self.students + [(grade, name)])
             self.add_list.append(True)
-            self.students[name] = grade
         else:
             self.add_list.append(False)
 
     def roster(self):
-        grades = list(set(g for g in self.students.values()))
-        grades.sort()
-
-        roster = []
-        for g in grades:
-            roster += self.grade(g)
-
-        return roster
+        return [n for i, n in self.students]
 
     def grade(self, grade_number):
-        grade_students = [s for s, g in self.students.items()
-                          if g == grade_number]
-        grade_students.sort()
-        return grade_students
+        return [n for g, n in self.students if g == grade_number]
 
     def added(self):
         return self.add_list
