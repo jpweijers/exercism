@@ -5,9 +5,6 @@ How to play blackjack:    https://bicyclecards.com/how-to-play/blackjack/
 """
 
 
-from xml.dom import ValidationErr
-
-
 def value_of_card(card):
     """Determine the scoring value of a card.
 
